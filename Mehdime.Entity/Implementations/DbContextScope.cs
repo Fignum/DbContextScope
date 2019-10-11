@@ -5,6 +5,7 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
+using Remoting;
 using System;
 using System.Collections;
 using System.Data;
@@ -13,7 +14,6 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -433,13 +433,13 @@ Stack Trace:
             if (newAmbientScope == null)
                 throw new ArgumentNullException("newAmbientScope");
 
-            var current = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
+            var current = CallContext<InstanceIdentifier>.GetData(AmbientDbContextScopeKey) as InstanceIdentifier;
 
             if (current == newAmbientScope._instanceIdentifier)
                 return;
 
             // Store the new scope's instance identifier in the CallContext, making it the ambient scope
-            CallContext.LogicalSetData(AmbientDbContextScopeKey, newAmbientScope._instanceIdentifier);
+            CallContext<InstanceIdentifier>.SetData(AmbientDbContextScopeKey, newAmbientScope._instanceIdentifier);
 
             // Keep track of this instance (or do nothing if we're already tracking it)
             DbContextScopeInstances.GetValue(newAmbientScope._instanceIdentifier, key => newAmbientScope);
@@ -451,8 +451,8 @@ Stack Trace:
         /// </summary>
         internal static void RemoveAmbientScope()
         {
-            var current = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
-            CallContext.LogicalSetData(AmbientDbContextScopeKey, null);
+            var current = CallContext<InstanceIdentifier>.GetData(AmbientDbContextScopeKey);
+            CallContext<InstanceIdentifier>.SetData(AmbientDbContextScopeKey, null);
 
             // If there was an ambient scope, we can stop tracking it now
             if (current != null)
@@ -467,7 +467,7 @@ Stack Trace:
         /// </summary>
         internal static void HideAmbientScope()
         {
-            CallContext.LogicalSetData(AmbientDbContextScopeKey, null);
+            CallContext<InstanceIdentifier>.SetData(AmbientDbContextScopeKey, null);
         }
 
         /// <summary>
@@ -476,7 +476,7 @@ Stack Trace:
         internal static DbContextScope GetAmbientScope()
         {
             // Retrieve the identifier of the ambient scope (if any)
-            var instanceIdentifier = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
+            var instanceIdentifier = CallContext<InstanceIdentifier>.GetData(AmbientDbContextScopeKey) as InstanceIdentifier;
             if (instanceIdentifier == null)
                 return null; // Either no ambient context has been set or we've crossed an app domain boundary and have (intentionally) lost the ambient context
 
