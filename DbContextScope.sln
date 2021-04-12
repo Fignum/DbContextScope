@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B9148E
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mehdime.Entity", "Mehdime.Entity\Mehdime.Entity.csproj", "{4830BAFD-4163-473E-B00F-65F274AC165F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fignum.Mehdime.Entity", "Mehdime.Entity\Fignum.Mehdime.Entity.csproj", "{4830BAFD-4163-473E-B00F-65F274AC165F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
