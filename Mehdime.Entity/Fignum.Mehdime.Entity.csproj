@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackageId>Fignum.Mehdime.Entity</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Bluestone</Authors>
+    <Company>Bluestone</Company>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+  </ItemGroup>
+</Project>
